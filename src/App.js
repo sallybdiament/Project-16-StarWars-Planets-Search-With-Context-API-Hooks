@@ -1,14 +1,15 @@
 import React from 'react';
 import './App.css';
-import TableContext from './context/TableContext';
-import Starwars from './Starwars';
+import Starwars from './component/Starwars';
+import AppProvider from './context/AppProvider';
 
 function App() {
-  const contextValue = 'Hello';
   return (
-    <TableContext.Provider value={ contextValue }>
-      <Starwars />
-    </TableContext.Provider>
+    <div>
+      <AppProvider>
+        <Starwars />
+      </AppProvider>
+    </div>
   );
 }
 
