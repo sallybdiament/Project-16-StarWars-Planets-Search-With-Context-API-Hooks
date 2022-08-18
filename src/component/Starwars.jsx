@@ -52,11 +52,6 @@ function Starwars() {
           { columns.map((column, index) => (
             <option key={ index }>{column}</option>
           ))}
-          {/* <option>population</option>
-          <option>orbital_period</option>
-          <option>diameter</option>
-          <option>rotation_period</option>
-          <option>surface_water</option> */}
         </select>
       </label>
       <label htmlFor="comparison">

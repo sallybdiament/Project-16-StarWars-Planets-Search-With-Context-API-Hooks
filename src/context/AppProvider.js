@@ -5,6 +5,7 @@ import fetchAPI from '../services/data';
 
 function AppProvider({ children }) {
   const [planets, setPlanets] = useState([]);
+  const [allPlanets, setAllPlanets] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
   const [filterByNumericValuesObject, setFilterByNumericValuesObject] = useState({
     column: 'population',
@@ -27,19 +28,25 @@ function AppProvider({ children }) {
         .map((planet) => {
           const { residents, ...rest } = planet;
           return rest;
-          // delete (planet.residents);
-          // return planet;
         });
       setPlanets(newPlanets2);
+      setAllPlanets(newPlanets2);
     }
     fetchPlanets();
   }, []);
 
   useEffect(() => {
     const um = -1;
-    // if(filterByNumericValues.length ===0 ){
-    //   setPlanets(Planets);
-    // }
+    if (filterByNumericValues.length === 0) {
+      setPlanets(allPlanets);
+      setColumns([
+        'population',
+        'orbital_period',
+        'diameter',
+        'rotation_period',
+        'surface_water',
+      ]);
+    }
     if (filterByNumericValues.length > 0) {
       const { column, comparison, value } = filterByNumericValues.at(um);
       let filteredPlanets = [];
@@ -78,6 +85,8 @@ function AppProvider({ children }) {
         setFilterByNumericValues,
         columns,
         setColumns,
+        allPlanets,
+        setAllPlanets,
       } }
     >
       {children}

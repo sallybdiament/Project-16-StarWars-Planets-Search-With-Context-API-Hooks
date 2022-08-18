@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen  } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {renderHook} from '@testing-library/react';
 import App from '../App';
 import mockData from './mockData';
@@ -12,7 +13,7 @@ test('I am your test', () => {
   expect(text).toBeInTheDocument();
 });
 
-test.only('se a api é chamada', () => {
+test('se a api é chamada', () => {
   const mockFetch = Promise.resolve({
   json: () => Promise.resolve(mockData),
   })
@@ -42,21 +43,23 @@ test('render Hook', () => {
   expect(result.current).toBe(mockData)
 })
 
-test("UserGreeter salutes an anonymous user", () => {
-  render(
-    <AppContext.Provider value={null}>
-      <App />
-    </AppContext.Provider>
-  );
-  expect(screen.getByText("Hello stranger!")).toBeInTheDocument();
-});
-
-test("UserGreeter salutes a user", () => {
+test("aparece o primeiro planeta", () => {
   const planets = mockData;
   render(
-    <UserContext.Provider value={planets}>
+    <AppContext.Provider value={planets}>
      <App />
-    </UserContext.Provider>
+    </AppContext.Provider>
   );
+  expect(screen.getByRole('cell', {  name: /tatooine/i})).toBeInTheDocument();
+});
+
+test("aparece depois de filtrado", () => {
+  render(
+     <App />
+  );
+  const inputValue = screen.getByRole('spinbutton', {  name: /valor:/i});
+        userEvent.type(inputValue, '10');
+        const botaoFiltrar = screen.getByRole('button', {  name: /filtrar/i})
+        userEvent.click(botaoFiltrar);
   expect(screen.getByRole('cell', {  name: /tatooine/i})).toBeInTheDocument();
 });
