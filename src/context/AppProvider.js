@@ -11,24 +11,43 @@ function AppProvider({ children }) {
     comparison: 'maior que',
     value: '0',
   });
-  const [filterByNumericValues, setFilterByNumericValues] = useState([{
-    column: 'population',
-    comparison: 'maior que',
-    value: '0',
-  }]);
+  const [filterByNumericValues, setFilterByNumericValues] = useState([]);
 
   useEffect(() => {
     async function fetchPlanets() {
       const newPlanets = await fetchAPI();
       const newPlanets2 = newPlanets
         .map((planet) => {
-          delete (planet.residents);
-          return planet;
+          const { residents, ...rest } = planet;
+          return rest;
+          // delete (planet.residents);
+          // return planet;
         });
       setPlanets(newPlanets2);
     }
     fetchPlanets();
   }, []);
+
+  useEffect(() => {
+    const um = -1;
+    if (filterByNumericValues.length > 0) {
+      const { column, comparison, value } = filterByNumericValues.at(um);
+      let filteredPlanets = [];
+      if (comparison === 'maior que') {
+        filteredPlanets = planets
+          .filter((planet) => (
+            Number(planet[column]) > Number(value)));
+      } else if (comparison === 'menor que') {
+        filteredPlanets = planets
+          .filter((planet) => Number(planet[column]) < Number(value));
+      } else if (comparison === 'igual a') {
+        filteredPlanets = planets
+          .filter((planet) => Number(planet[column]) === Number(value));
+      }
+      console.log(filteredPlanets);
+      setPlanets(filteredPlanets);
+    }
+  }, [filterByNumericValues]);
 
   return (
 

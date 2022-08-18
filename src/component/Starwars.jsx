@@ -2,6 +2,9 @@ import React, { useContext } from 'react';
 import AppContext from '../context/AppContext';
 
 function Starwars() {
+  // const [column, setColumn] = useState('population');
+  // const [comparison, setComparison] = useState('maior que');
+
   const { planets, filterByName, setFilterByName,
     filterByNumericValues, setFilterByNumericValues,
     filterByNumericValuesObject,
@@ -16,24 +19,10 @@ function Starwars() {
       ...filterByNumericValuesObject, [target.name]: target.value });
   };
 
-  const onFilterClick = () => {
-    const um = -1;
-    setFilterByNumericValues([...filterByNumericValues, filterByNumericValuesObject]);
-    const { column = '', comparison = '', value = '' } = filterByNumericValues.at(um);
-    let filteredPlanets = [];
-    if (comparison === 'maior que') {
-      filteredPlanets = planets
-        .filter((planet) => (
-          Number(planet[column]) > Number(value)));
-    } else if (comparison === 'menor que') {
-      filteredPlanets = planets
-        .filter((planet) => Number(planet[column]) < Number(value));
-    } else if (comparison === 'igual a') {
-      filteredPlanets = planets
-        .filter((planet) => Number(planet[column]) === Number(value));
-    }
-    console.log(filteredPlanets);
-    return filteredPlanets;
+  const onFilterClick = async () => {
+    await setFilterByNumericValues([
+      ...filterByNumericValues,
+      filterByNumericValuesObject]);
   };
 
   return (
@@ -60,7 +49,7 @@ function Starwars() {
           <option>population</option>
           <option>orbital_period</option>
           <option>diameter</option>
-          <option>rotarion_period</option>
+          <option>rotation_period</option>
           <option>surface_water</option>
         </select>
       </label>
@@ -80,18 +69,18 @@ function Starwars() {
       <label htmlFor="value">
         Valor:
         <input
-          type="text"
+          type="number"
           data-testid="value-filter"
           name="value"
           id="value"
-          //   value={  }
+          value={ filterByNumericValuesObject.value }
           onChange={ onInputChange }
         />
       </label>
       <button
         type="submit"
         data-testid="button-filter"
-        onClick={ () => onFilterClick() }
+        onClick={ onFilterClick }
       >
         Filtrar
       </button>
