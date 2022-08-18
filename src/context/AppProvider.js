@@ -6,11 +6,16 @@ import fetchAPI from '../services/data';
 function AppProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
-  const [filterByNumericValues, setFilterByNumericValues] = useState({
+  const [filterByNumericValuesObject, setFilterByNumericValuesObject] = useState({
     column: 'population',
     comparison: 'maior que',
-    value: '100000',
+    value: '0',
   });
+  const [filterByNumericValues, setFilterByNumericValues] = useState([{
+    column: 'population',
+    comparison: 'maior que',
+    value: '0',
+  }]);
 
   useEffect(() => {
     async function fetchPlanets() {
@@ -33,6 +38,8 @@ function AppProvider({ children }) {
         setPlanets,
         filterByName,
         setFilterByName,
+        filterByNumericValuesObject,
+        setFilterByNumericValuesObject,
         filterByNumericValues,
         setFilterByNumericValues,
       } }

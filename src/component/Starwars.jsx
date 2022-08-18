@@ -2,10 +2,38 @@ import React, { useContext } from 'react';
 import AppContext from '../context/AppContext';
 
 function Starwars() {
-  const { planets, filterByName, setFilterByName } = useContext(AppContext);
+  const { planets, filterByName, setFilterByName,
+    filterByNumericValues, setFilterByNumericValues,
+    filterByNumericValuesObject,
+    setFilterByNumericValuesObject } = useContext(AppContext);
 
   const handleChange = ({ target }) => {
     setFilterByName({ name: target.value });
+  };
+
+  const onInputChange = ({ target }) => {
+    setFilterByNumericValuesObject({
+      ...filterByNumericValuesObject, [target.name]: target.value });
+  };
+
+  const onFilterClick = () => {
+    const um = -1;
+    setFilterByNumericValues([...filterByNumericValues, filterByNumericValuesObject]);
+    const { column = '', comparison = '', value = '' } = filterByNumericValues.at(um);
+    let filteredPlanets = [];
+    if (comparison === 'maior que') {
+      filteredPlanets = planets
+        .filter((planet) => (
+          Number(planet[column]) > Number(value)));
+    } else if (comparison === 'menor que') {
+      filteredPlanets = planets
+        .filter((planet) => Number(planet[column]) < Number(value));
+    } else if (comparison === 'igual a') {
+      filteredPlanets = planets
+        .filter((planet) => Number(planet[column]) === Number(value));
+    }
+    console.log(filteredPlanets);
+    return filteredPlanets;
   };
 
   return (
@@ -21,12 +49,13 @@ function Starwars() {
           onChange={ handleChange }
         />
       </label>
-      <label htmlFor="columnFilter">
+      <label htmlFor="column">
         Coluna:
         <select
           data-testid="column-filter"
-          name="columnFilter"
-          id="columnFilter"
+          name="column"
+          id="column"
+          onChange={ onInputChange }
         >
           <option>population</option>
           <option>orbital_period</option>
@@ -35,32 +64,34 @@ function Starwars() {
           <option>surface_water</option>
         </select>
       </label>
-      <label htmlFor="comparisonFilter">
+      <label htmlFor="comparison">
         Operador:
         <select
           data-testid="comparison-filter"
-          name="comparisonFilter"
-          id="comparisonFilter"
+          name="comparison"
+          id="comparison"
+          onChange={ onInputChange }
         >
           <option>maior que</option>
           <option>menor que</option>
           <option>igual a</option>
         </select>
       </label>
-      <label htmlFor="valueFilter">
+      <label htmlFor="value">
         Valor:
         <input
           type="text"
           data-testid="value-filter"
-          name="valueFilter"
-          id="valueFilter"
+          name="value"
+          id="value"
           //   value={  }
-          // onChange={ handleChange }
+          onChange={ onInputChange }
         />
       </label>
       <button
         type="submit"
         data-testid="button-filter"
+        onClick={ () => onFilterClick() }
       >
         Filtrar
       </button>
