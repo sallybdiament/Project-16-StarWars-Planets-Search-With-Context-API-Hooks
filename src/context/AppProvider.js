@@ -12,6 +12,13 @@ function AppProvider({ children }) {
     value: '0',
   });
   const [filterByNumericValues, setFilterByNumericValues] = useState([]);
+  const [columns, setColumns] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
 
   useEffect(() => {
     async function fetchPlanets() {
@@ -46,6 +53,11 @@ function AppProvider({ children }) {
       }
       console.log(filteredPlanets);
       setPlanets(filteredPlanets);
+      console.log(filterByNumericValues.at(um).column);
+      const newColumns = columns
+        .filter((c) => c !== filterByNumericValues.at(um).column);
+      console.log(newColumns);
+      setColumns(newColumns);
     }
   }, [filterByNumericValues]);
 
@@ -61,6 +73,8 @@ function AppProvider({ children }) {
         setFilterByNumericValuesObject,
         filterByNumericValues,
         setFilterByNumericValues,
+        columns,
+        setColumns,
       } }
     >
       {children}

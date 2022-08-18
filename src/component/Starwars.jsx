@@ -2,13 +2,12 @@ import React, { useContext } from 'react';
 import AppContext from '../context/AppContext';
 
 function Starwars() {
-  // const [column, setColumn] = useState('population');
-  // const [comparison, setComparison] = useState('maior que');
-
   const { planets, filterByName, setFilterByName,
     filterByNumericValues, setFilterByNumericValues,
     filterByNumericValuesObject,
-    setFilterByNumericValuesObject } = useContext(AppContext);
+    setFilterByNumericValuesObject,
+    columns,
+  } = useContext(AppContext);
 
   const handleChange = ({ target }) => {
     setFilterByName({ name: target.value });
@@ -46,11 +45,14 @@ function Starwars() {
           id="column"
           onChange={ onInputChange }
         >
-          <option>population</option>
+          { columns.map((column, index) => (
+            <option key={ index }>{column}</option>
+          ))}
+          {/* <option>population</option>
           <option>orbital_period</option>
           <option>diameter</option>
           <option>rotation_period</option>
-          <option>surface_water</option>
+          <option>surface_water</option> */}
         </select>
       </label>
       <label htmlFor="comparison">
@@ -83,6 +85,34 @@ function Starwars() {
         onClick={ onFilterClick }
       >
         Filtrar
+      </button>
+      <table>
+        <tbody>
+          {filterByNumericValues
+            .map((filter, index) => (
+              <tr
+                key={ index }
+                data-testid="filter"
+              >
+                <td>{filter.column}</td>
+                <td>{filter.comparison}</td>
+                <td>{filter.value}</td>
+                <td>
+                  <button
+                    type="submit"
+                  >
+                    Excluir
+                  </button>
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+      <button
+        type="submit"
+        data-testid="button-remove-filters"
+      >
+        Remover todas filtragens
       </button>
       <table>
         <thead>
