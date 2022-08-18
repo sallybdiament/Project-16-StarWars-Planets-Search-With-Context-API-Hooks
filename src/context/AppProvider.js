@@ -37,6 +37,9 @@ function AppProvider({ children }) {
 
   useEffect(() => {
     const um = -1;
+    // if(filterByNumericValues.length ===0 ){
+    //   setPlanets(Planets);
+    // }
     if (filterByNumericValues.length > 0) {
       const { column, comparison, value } = filterByNumericValues.at(um);
       let filteredPlanets = [];

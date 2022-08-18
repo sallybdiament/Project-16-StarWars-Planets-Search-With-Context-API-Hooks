@@ -24,6 +24,10 @@ function Starwars() {
       filterByNumericValuesObject]);
   };
 
+  const onRemoveAllClick = () => {
+    setFilterByNumericValues([]);
+  };
+
   return (
     <div>
       <label htmlFor="searchName">
@@ -86,31 +90,39 @@ function Starwars() {
       >
         Filtrar
       </button>
-      <table>
-        <tbody>
-          {filterByNumericValues
-            .map((filter, index) => (
-              <tr
-                key={ index }
-                data-testid="filter"
+
+      {filterByNumericValues
+        .map((filter, index) => (
+          <div
+            key={ index }
+            data-testid="filter"
+          >
+            <span>
+              {filter.column}
+              {' '}
+            </span>
+            <span>
+              {filter.comparison}
+              {' '}
+            </span>
+            <span>
+              {filter.value}
+              {' '}
+            </span>
+            <span>
+              <button
+                type="submit"
               >
-                <td>{filter.column}</td>
-                <td>{filter.comparison}</td>
-                <td>{filter.value}</td>
-                <td>
-                  <button
-                    type="submit"
-                  >
-                    Excluir
-                  </button>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+                Excluir
+              </button>
+            </span>
+          </div>
+        ))}
+
       <button
         type="submit"
         data-testid="button-remove-filters"
+        onClick={ onRemoveAllClick }
       >
         Remover todas filtragens
       </button>
