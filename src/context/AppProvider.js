@@ -6,6 +6,11 @@ import fetchAPI from '../services/data';
 function AppProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
+  const [filterByNumericValues, setFilterByNumericValues] = useState({
+    column: 'population',
+    comparison: 'maior que',
+    value: '100000',
+  });
 
   useEffect(() => {
     async function fetchPlanets() {
@@ -28,6 +33,8 @@ function AppProvider({ children }) {
         setPlanets,
         filterByName,
         setFilterByName,
+        filterByNumericValues,
+        setFilterByNumericValues,
       } }
     >
       {children}

@@ -17,10 +17,53 @@ function Starwars() {
           data-testid="name-filter"
           name="searchName"
           id="searchName"
-          //   value={ searchArtist }
+          //   value={  }
           onChange={ handleChange }
         />
       </label>
+      <label htmlFor="columnFilter">
+        Coluna:
+        <select
+          data-testid="column-filter"
+          name="columnFilter"
+          id="columnFilter"
+        >
+          <option>population</option>
+          <option>orbital_period</option>
+          <option>diameter</option>
+          <option>rotarion_period</option>
+          <option>surface_water</option>
+        </select>
+      </label>
+      <label htmlFor="comparisonFilter">
+        Operador:
+        <select
+          data-testid="comparison-filter"
+          name="comparisonFilter"
+          id="comparisonFilter"
+        >
+          <option>maior que</option>
+          <option>menor que</option>
+          <option>igual a</option>
+        </select>
+      </label>
+      <label htmlFor="valueFilter">
+        Valor:
+        <input
+          type="text"
+          data-testid="value-filter"
+          name="valueFilter"
+          id="valueFilter"
+          //   value={  }
+          // onChange={ handleChange }
+        />
+      </label>
+      <button
+        type="submit"
+        data-testid="button-filter"
+      >
+        Filtrar
+      </button>
       <table>
         <thead>
           <tr>
