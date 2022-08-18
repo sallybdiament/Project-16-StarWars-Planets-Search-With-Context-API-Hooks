@@ -5,6 +5,7 @@ import fetchAPI from '../services/data';
 
 function AppProvider({ children }) {
   const [planets, setPlanets] = useState([]);
+  const [filterByName, setFilterByName] = useState({ name: '' });
 
   useEffect(() => {
     async function fetchPlanets() {
@@ -25,6 +26,8 @@ function AppProvider({ children }) {
       value={ {
         planets,
         setPlanets,
+        filterByName,
+        setFilterByName,
       } }
     >
       {children}
