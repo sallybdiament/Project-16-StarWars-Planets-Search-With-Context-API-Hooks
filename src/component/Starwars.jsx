@@ -7,6 +7,8 @@ function Starwars() {
     filterByNumericValuesObject,
     setFilterByNumericValuesObject,
     columns, setColumns,
+    order, setOrder,
+    clickOrder, setClickOrder,
   } = useContext(AppContext);
 
   const handleChange = ({ target }) => {
@@ -35,6 +37,18 @@ function Starwars() {
     setFilterByNumericValues(newFilters);
     setColumns(newColumns);
     // colocar a key como nome da coluna e fazer o filtro por isso.
+  };
+
+  const onInputSortChange = (event) => {
+    setOrder({ ...order, sort: event.target.value });
+  };
+
+  const onInputColumnSortChange = (event) => {
+    setOrder({ ...order, column: event.target.value });
+  };
+
+  const onOrderClick = () => {
+    setClickOrder(!clickOrder);
   };
 
   return (
@@ -139,7 +153,7 @@ function Starwars() {
           data-testid="column-sort"
           name="columnSort"
           id="columnSort"
-          // onChange={ onInputSortChange }
+          onChange={ onInputColumnSortChange }
         >
           <option>population</option>
           <option>orbital_period</option>
@@ -148,13 +162,19 @@ function Starwars() {
           <option>surface_water</option>
         </select>
       </label>
-      <input type="radio" value="ASC" name="order" />
+      <input type="radio" value="ASC" name="order" onChange={ onInputSortChange } />
       {' '}
       ASC
-      <input type="radio" value="DESC" name="order" />
+      <input type="radio" value="DESC" name="order" onChange={ onInputSortChange } />
       {' '}
       DESC
-
+      <button
+        type="submit"
+        data-testid="column-sort-button"
+        onClick={ onOrderClick }
+      >
+        Ordenar
+      </button>
       <table>
         <thead>
           <tr>

@@ -20,6 +20,8 @@ function AppProvider({ children }) {
     'rotation_period',
     'surface_water',
   ]);
+  const [order, setOrder] = useState({ column: 'population', sort: 'ASC' });
+  const [clickOrder, setClickOrder] = useState(false);
 
   useEffect(() => {
     async function fetchPlanets() {
@@ -94,6 +96,22 @@ function AppProvider({ children }) {
     }
   }, [filterByNumericValues]);
 
+  useEffect(() => {
+    console.log(order);
+  //   if (order !== undefined) {
+  //     const { column, sort } = order;
+  //     if (sort === 'ASC') {
+  //       const one = 1;
+  //       const sortedPlanets = planets[column].sort((a, b) => {
+  //         if (a < b) return -one;
+  //         if (a > b) return 1;
+  //         return 0;
+  //       });
+  //       setPlanets(sortedPlanets);
+  //     }
+  //   }
+  }, [clickOrder]);
+
   return (
 
     <AppContext.Provider
@@ -110,6 +128,10 @@ function AppProvider({ children }) {
         setColumns,
         allPlanets,
         setAllPlanets,
+        order,
+        setOrder,
+        clickOrder,
+        setClickOrder,
       } }
     >
       {children}
