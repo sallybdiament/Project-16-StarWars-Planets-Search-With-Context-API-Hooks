@@ -133,6 +133,28 @@ function Starwars() {
       >
         Remover todas filtragens
       </button>
+      <label htmlFor="columnSort">
+        Coluna para ordenar:
+        <select
+          data-testid="column-sort"
+          name="columnSort"
+          id="columnSort"
+          // onChange={ onInputSortChange }
+        >
+          <option>population</option>
+          <option>orbital_period</option>
+          <option>diameter</option>
+          <option>rotation_period</option>
+          <option>surface_water</option>
+        </select>
+      </label>
+      <input type="radio" value="ASC" name="order" />
+      {' '}
+      ASC
+      <input type="radio" value="DESC" name="order" />
+      {' '}
+      DESC
+
       <table>
         <thead>
           <tr>
@@ -182,7 +204,7 @@ function Starwars() {
             .filter((planet) => planet.name.includes(filterByName.name))
             .map((planet) => (
               <tr key={ planet.name }>
-                <td>{ planet.name}</td>
+                <td data-testid="planet-name">{ planet.name}</td>
                 <td>{ planet.rotation_period }</td>
                 <td>{ planet.orbital_period }</td>
                 <td>{ planet.diameter }</td>
