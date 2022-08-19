@@ -2,15 +2,12 @@ import React, { useContext } from 'react';
 import AppContext from '../context/AppContext';
 
 function Starwars() {
-  const { planets, setPlanets,
-    filterByName, setFilterByName,
+  const { planets, setPlanets, filterByName, setFilterByName,
     filterByNumericValues, setFilterByNumericValues,
     filterByNumericValuesObject,
     setFilterByNumericValuesObject,
-    columns, setColumns,
-    order, setOrder,
-    clickOrder, setClickOrder,
-    allPlanets,
+    columns, setColumns, order, setOrder,
+    clickOrder, setClickOrder, allPlanets,
   } = useContext(AppContext);
 
   const handleChange = ({ target }) => {
@@ -31,11 +28,7 @@ function Starwars() {
   const onRemoveAllClick = () => {
     setFilterByNumericValues([]);
     setPlanets(allPlanets);
-    setColumns([
-      'population',
-      'orbital_period',
-      'diameter',
-      'rotation_period',
+    setColumns(['population', 'orbital_period', 'diameter', 'rotation_period',
       'surface_water',
     ]);
   };
