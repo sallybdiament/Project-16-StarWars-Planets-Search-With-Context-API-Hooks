@@ -60,31 +60,31 @@ function AppProvider({ children }) {
     } else { setPlanets(allPlanets); }
   }, [filterByNumericValues]);
 
-  // useEffect(() => {
-  //   const um = -1;
-  //   if (filterByNumericValues.length > 0) {
-  //     const { column, comparison, value } = filterByNumericValues.at(um);
-  //     let filteredPlanets = [];
-  //     if (comparison === 'maior que') {
-  //       filteredPlanets = planets
-  //         .filter((planet) => (
-  //           Number(planet[column]) > Number(value)));
-  //     } else if (comparison === 'menor que') {
-  //       filteredPlanets = planets
-  //         .filter((planet) => Number(planet[column]) < Number(value));
-  //     } else if (comparison === 'igual a') {
-  //       filteredPlanets = planets
-  //         .filter((planet) => Number(planet[column]) === Number(value));
-  //     }
-  //     // console.log(filteredPlanets);
-  //     setPlanets(filteredPlanets);
-  //     // console.log(filterByNumericValues.at(um).column);
-  //     const newColumns = columns
-  //       .filter((c) => c !== filterByNumericValues.at(um).column);
-  //     // console.log(newColumns);
-  //     setColumns(newColumns);
-  //   }
-  // }, [filterByNumericValues]);
+  useEffect(() => {
+    const um = -1;
+    if (filterByNumericValues.length > 0) {
+      // const { column } = filterByNumericValues.at(um);
+      // let filteredPlanets = [];
+      // if (comparison === 'maior que') {
+      //   filteredPlanets = planets
+      //     .filter((planet) => (
+      //       Number(planet[column]) > Number(value)));
+      // } else if (comparison === 'menor que') {
+      //   filteredPlanets = planets
+      //     .filter((planet) => Number(planet[column]) < Number(value));
+      // } else if (comparison === 'igual a') {
+      //   filteredPlanets = planets
+      //     .filter((planet) => Number(planet[column]) === Number(value));
+      // }
+      // // console.log(filteredPlanets);
+      // setPlanets(filteredPlanets);
+      // console.log(filterByNumericValues.at(um).column);
+      const newColumns = filterByNumericValues.at(um).column
+        .filter((c) => c !== filterByNumericValues.at(um).column);
+      // console.log(newColumns);
+      setColumns(newColumns);
+    }
+  }, [filterByNumericValues]);
 
   useEffect(() => {
     console.log(order);
