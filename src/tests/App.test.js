@@ -63,3 +63,29 @@ test("aparece depois de filtrado", () => {
         userEvent.click(botaoFiltrar);
   expect(screen.getByRole('cell', {  name: /tatooine/i})).toBeInTheDocument();
 });
+
+test("aparece depois de filtrado", () => {
+  render(
+     <App />
+  );
+  const inputOperador = screen.getByRole('combobox', {  name: /operador:/i});
+  const inputValue = screen.getByRole('spinbutton', {  name: /valor:/i});
+        userEvent.type(inputValue, '100000000');
+        userEvent.type(inputOperador, 'menor que');
+        const botaoFiltrar = screen.getByRole('button', {  name: /filtrar/i})
+        userEvent.click(botaoFiltrar);
+  expect(screen.getByRole('cell', {  name: /tatooine/i})).toBeInTheDocument();
+});
+test("aparece depois de filtrado", () => {
+  render(
+     <App />
+  );
+  
+  const inputOperador = screen.getByRole('combobox', {  name: /operador:/i});
+  const inputValue = screen.getByRole('spinbutton', {  name: /valor:/i});
+        userEvent.type(inputValue, '200000');
+        userEvent.type(inputOperador, 'igual a');
+        const botaoFiltrar = screen.getByRole('button', {  name: /filtrar/i})
+        userEvent.click(botaoFiltrar);
+   expect(screen.getByRole('cell', {  name: /tatooine/i})).toBeInTheDocument();
+});

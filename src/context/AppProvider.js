@@ -35,6 +35,29 @@ function AppProvider({ children }) {
     fetchPlanets();
   }, []);
 
+  // fazer um useEffect com os filtros sendo percorridos do zero: fazer um map edepois dentro dele a logica do if
+  useEffect(() => {
+    if (filterByNumericValues.length > 0) {
+      let filteredPlanets = [];
+      filterByNumericValues.map((filtered) => {
+        if (filtered.comparison === 'maior que') {
+          filteredPlanets = planets
+            .filter((planet) => (
+              Number(planet[filtered.column]) > Number(filtered.value)));
+        } else if (filtered.comparison === 'menor que') {
+          filteredPlanets = planets
+            .filter((planet) => Number(planet[filtered.column]) < Number(filtered.value));
+        } else if (filtered.comparison === 'igual a') {
+          filteredPlanets = planets
+            .filter((planet) => (
+              Number(planet[filtered.column]) === Number(filtered.value)));
+        }
+        console.log(filteredPlanets);
+        return setPlanets(filteredPlanets);
+      });
+    }
+  }, [filterByNumericValues]);
+
   useEffect(() => {
     const um = -1;
     if (filterByNumericValues.length === 0) {
@@ -61,12 +84,12 @@ function AppProvider({ children }) {
         filteredPlanets = planets
           .filter((planet) => Number(planet[column]) === Number(value));
       }
-      console.log(filteredPlanets);
+      // console.log(filteredPlanets);
       setPlanets(filteredPlanets);
-      console.log(filterByNumericValues.at(um).column);
+      // console.log(filterByNumericValues.at(um).column);
       const newColumns = columns
         .filter((c) => c !== filterByNumericValues.at(um).column);
-      console.log(newColumns);
+      // console.log(newColumns);
       setColumns(newColumns);
     }
   }, [filterByNumericValues]);

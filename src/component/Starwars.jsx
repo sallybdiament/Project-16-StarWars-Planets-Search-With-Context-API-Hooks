@@ -6,7 +6,7 @@ function Starwars() {
     filterByNumericValues, setFilterByNumericValues,
     filterByNumericValuesObject,
     setFilterByNumericValuesObject,
-    columns,
+    columns, setColumns,
   } = useContext(AppContext);
 
   const handleChange = ({ target }) => {
@@ -26,6 +26,15 @@ function Starwars() {
 
   const onRemoveAllClick = () => {
     setFilterByNumericValues([]);
+  };
+
+  const onRemoveClick = (event) => {
+    const { id } = event.target;
+    const newFilters = filterByNumericValues.filter((filter) => filter.column !== id);
+    const newColumns = columns.concat(id);
+    setFilterByNumericValues(newFilters);
+    setColumns(newColumns);
+    // colocar a key como nome da coluna e fazer o filtro por isso.
   };
 
   return (
@@ -107,6 +116,9 @@ function Starwars() {
             <span>
               <button
                 type="submit"
+                key={ filter.column }
+                id={ filter.column }
+                onClick={ onRemoveClick }
               >
                 Excluir
               </button>
