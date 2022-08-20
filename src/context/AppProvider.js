@@ -88,7 +88,7 @@ function AppProvider({ children }) {
         setPlanets(sortedPlanets);
       }
     }
-  }, [clickOrder, order]);
+  }, [clickOrder]);
 
   return (
 
