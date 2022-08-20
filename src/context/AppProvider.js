@@ -21,7 +21,7 @@ function AppProvider({ children }) {
     'surface_water',
   ]);
   const [order, setOrder] = useState({ column: 'population', sort: 'ASC' });
-  const [clickOrder, setClickOrder] = useState(false);
+  const [clickOrder, setClickOrder] = useState(1);
 
   useEffect(() => {
     async function fetchPlanets() {
@@ -37,7 +37,6 @@ function AppProvider({ children }) {
     fetchPlanets();
   }, []);
 
-  // fazer um useEffect com os filtros sendo percorridos do zero: fazer um map edepois dentro dele a logica do if
   useEffect(() => {
     if (filterByNumericValues.length > 0) {
       let filteredPlanets = allPlanets;
@@ -54,7 +53,6 @@ function AppProvider({ children }) {
             .filter((planet) => (
               Number(planet[filtered.column]) === Number(filtered.value)));
         }
-        // console.log(filteredPlanets);
         return setPlanets(filteredPlanets);
       });
       const columnsFiltered = filterByNumericValues.map((f) => f.column);
@@ -64,47 +62,33 @@ function AppProvider({ children }) {
     } else { setPlanets(allPlanets); }
   }, [filterByNumericValues]);
 
-  // useEffect(() => {
-  //   const um = -1;
-  //   if (filterByNumericValues.length > 0) {
-  // const { column } = filterByNumericValues.at(um);
-  // let filteredPlanets = [];
-  // if (comparison === 'maior que') {
-  //   filteredPlanets = planets
-  //     .filter((planet) => (
-  //       Number(planet[column]) > Number(value)));
-  // } else if (comparison === 'menor que') {
-  //   filteredPlanets = planets
-  //     .filter((planet) => Number(planet[column]) < Number(value));
-  // } else if (comparison === 'igual a') {
-  //   filteredPlanets = planets
-  //     .filter((planet) => Number(planet[column]) === Number(value));
-  // }
-  // // console.log(filteredPlanets);
-  // setPlanets(filteredPlanets);
-  // console.log(filterByNumericValues.at(um).column);
-  //     const newColumns = filterByNumericValues.at(um).column
-  //       .filter((c) => c !== filterByNumericValues.at(um).column);
-  //     // console.log(newColumns);
-  //     setColumns(newColumns);
-  //   }
-  // }, [filterByNumericValues]);
-
   useEffect(() => {
-    // console.log(order);
-    // if (order !== undefined) {
-    //   const { column, sort } = order;
-    //   if (sort === 'ASC') {
-    //     const one = 1;
-    //     const sortedPlanets = planets[column].sort((a, b) => {
-    //       if (a < b) return -one;
-    //       if (a > b) return 1;
-    //       return 0;
-    //     });
-    //     setPlanets(sortedPlanets);
-    //   }
-    // }
-  }, [clickOrder]);
+    if (clickOrder > 1) {
+      const { column, sort } = order;
+      if (sort === 'ASC') {
+        const one = 1;
+        const sortedPlanets = planets.sort((a, b) => {
+          if (Number(a[column]) < Number(b[column])) return -one;
+          if (Number(a[column]) > Number(b[column])) return 1;
+          if (b[column] === 'unknown') return -one;
+          if (a[column] === 'unknown') return -one;
+          return 0;
+        });
+        setPlanets(sortedPlanets);
+      }
+      if (sort === 'DESC') {
+        const one = 1;
+        const sortedPlanets = planets.sort((a, b) => {
+          if (Number(a[column]) < Number(b[column])) return 1;
+          if (Number(a[column]) > Number(b[column])) return -one;
+          if (b[column] === 'unknown') return 1;
+          if (a[column] === 'unknown') return 1;
+          return 0;
+        });
+        setPlanets(sortedPlanets);
+      }
+    }
+  }, [clickOrder, order]);
 
   return (
 

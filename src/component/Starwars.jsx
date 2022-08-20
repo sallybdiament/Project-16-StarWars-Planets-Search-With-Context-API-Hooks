@@ -50,8 +50,8 @@ function Starwars() {
     setOrder({ ...order, column: event.target.value });
   };
 
-  const onOrderClick = () => {
-    setClickOrder(!clickOrder);
+  const onOrderClick = async () => {
+    await setClickOrder(clickOrder + 1);
   };
 
   return (
