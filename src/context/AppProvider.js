@@ -62,33 +62,34 @@ function AppProvider({ children }) {
     } else { setPlanets(allPlanets); }
   }, [filterByNumericValues]);
 
-  useEffect(() => {
-    if (clickOrder > 1) {
-      const { column, sort } = order;
-      if (sort === 'ASC') {
-        const one = 1;
-        const sortedPlanets = planets.sort((a, b) => {
-          if (Number(a[column]) < Number(b[column])) return -one;
-          if (Number(a[column]) > Number(b[column])) return 1;
-          if (b[column] === 'unknown') return -one;
-          if (a[column] === 'unknown') return -one;
-          return 0;
-        });
-        setPlanets(sortedPlanets);
-      }
-      if (sort === 'DESC') {
-        const one = 1;
-        const sortedPlanets = planets.sort((a, b) => {
-          if (Number(a[column]) < Number(b[column])) return 1;
-          if (Number(a[column]) > Number(b[column])) return -one;
-          if (b[column] === 'unknown') return 1;
-          if (a[column] === 'unknown') return 1;
-          return 0;
-        });
-        setPlanets(sortedPlanets);
-      }
-    }
-  }, [clickOrder]);
+  // useEffect(() => {
+  //   if (clickOrder > 1) {
+  //     const { column, sort } = order;
+  //     if (sort === 'ASC') {
+  //       const one = 1;
+  //       const sortedPlanets = planets.sort((a, b) => {
+  //         if (Number(a[column]) < Number(b[column])) return -one;
+  //         if (Number(a[column]) > Number(b[column])) return 1;
+  //         if (b[column] === 'unknown') return -one;
+  //         if (a[column] === 'unknown') return -one;
+  //         return 0;
+  //       });
+  //       setPlanets(sortedPlanets);
+  //       console.log(sortedPlanets);
+  //     }
+  //     if (sort === 'DESC') {
+  //       const one = 1;
+  //       const sortedPlanets = planets.sort((a, b) => {
+  //         if (Number(a[column]) < Number(b[column])) return 1;
+  //         if (Number(a[column]) > Number(b[column])) return -one;
+  //         if (b[column] === 'unknown') return 1;
+  //         if (a[column] === 'unknown') return 1;
+  //         return 0;
+  //       });
+  //       setPlanets(sortedPlanets);
+  //     }
+  //   }
+  // }, [clickOrder]);
 
   return (
 

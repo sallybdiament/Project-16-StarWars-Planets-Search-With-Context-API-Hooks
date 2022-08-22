@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import AppContext from '../context/AppContext';
 
 function Starwars() {
@@ -50,9 +50,45 @@ function Starwars() {
     setOrder({ ...order, column: event.target.value });
   };
 
-  const onOrderClick = async () => {
-    await setClickOrder(clickOrder + 1);
+  const onOrderClick = () => {
+    setClickOrder(clickOrder + 1);
   };
+
+  function ASC(column) {
+    const one = 1;
+    const sortedPlanets = planets.sort((a, b) => {
+      if (Number(a[column]) < Number(b[column])) return -one;
+      if (Number(a[column]) > Number(b[column])) return 1;
+      if (b[column] === 'unknown') return -one;
+      if (a[column] === 'unknown') return -one;
+      return 0;
+    });
+    setPlanets(sortedPlanets);
+  }
+
+  function DESC(column) {
+    const one = 1;
+    const sortedPlanets = planets.sort((a, b) => {
+      if (Number(a[column]) < Number(b[column])) return 1;
+      if (Number(a[column]) > Number(b[column])) return -one;
+      if (b[column] === 'unknown') return 1;
+      if (a[column] === 'unknown') return 1;
+      return 0;
+    });
+    setPlanets(sortedPlanets);
+  }
+
+  useEffect(() => {
+    if (clickOrder > 1) {
+      const { column, sort } = order;
+      if (sort === 'ASC') {
+        ASC(column);
+      }
+      if (sort === 'DESC') {
+        DESC(column);
+      }
+    }
+  }, [clickOrder]);
 
   return (
     <div>
@@ -175,6 +211,7 @@ function Starwars() {
         type="submit"
         data-testid="column-sort-button"
         onClick={ onOrderClick }
+        // onClick={ (e) => setClickOrder(e.target.value) }
       >
         Ordenar
       </button>
