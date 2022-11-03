@@ -59,8 +59,8 @@ function Starwars() {
     const sortedPlanets = planets.sort((a, b) => {
       if (Number(a[column]) < Number(b[column])) return -one;
       if (Number(a[column]) > Number(b[column])) return 1;
-      if (b[column] === 'unknown') return -one;
-      if (a[column] === 'unknown') return -one;
+      // if (b[column] === 'unknown') return -one;
+      // if (a[column] === 'unknown') return -one;
       return 0;
     });
     setPlanets(sortedPlanets);
