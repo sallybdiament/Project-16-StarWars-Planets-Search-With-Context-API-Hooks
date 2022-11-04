@@ -54,7 +54,7 @@ function Starwars() {
     setClickOrder(clickOrder + 1);
   };
 
-  function ASC(column) {
+  function ASC(column, sort) {
     const one = 1;
     const sortedPlanets = planets.sort((a, b) => {
       if (Number(a[column]) < Number(b[column])) return -one;
@@ -63,7 +63,7 @@ function Starwars() {
       // if (a[column] === 'unknown') return -one;
       return 0;
     });
-    setPlanets(sortedPlanets);
+    if (sort) { setPlanets(sortedPlanets); }
   }
 
   function DESC(column) {
@@ -81,12 +81,7 @@ function Starwars() {
   useEffect(() => {
     if (clickOrder > 1) {
       const { column, sort } = order;
-      if (sort === 'ASC') {
-        ASC(column);
-      }
-      if (sort === 'DESC') {
-        DESC(column);
-      }
+      ASC(column, sort);
     }
   }, [clickOrder]);
 
@@ -210,8 +205,7 @@ function Starwars() {
       <button
         type="submit"
         data-testid="column-sort-button"
-        onClick={ onOrderClick }
-        // onClick={ (e) => setClickOrder(e.target.value) }
+        onClick={ onOrderClick }// onClick={ (e) => setClickOrder(e.target.value) }
       >
         Ordenar
       </button>
