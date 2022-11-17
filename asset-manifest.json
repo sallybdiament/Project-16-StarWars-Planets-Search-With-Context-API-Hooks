@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Project-16-StarWars-Planets-Search-With-Context-API-Hooks/static/css/main.abd64e84.css",
+    "main.js": "/Project-16-StarWars-Planets-Search-With-Context-API-Hooks/static/js/main.0a6b1d30.js",
+    "index.html": "/Project-16-StarWars-Planets-Search-With-Context-API-Hooks/index.html",
+    "main.abd64e84.css.map": "/Project-16-StarWars-Planets-Search-With-Context-API-Hooks/static/css/main.abd64e84.css.map",
+    "main.0a6b1d30.js.map": "/Project-16-StarWars-Planets-Search-With-Context-API-Hooks/static/js/main.0a6b1d30.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.abd64e84.css",
+    "static/js/main.0a6b1d30.js"
+  ]
+}
