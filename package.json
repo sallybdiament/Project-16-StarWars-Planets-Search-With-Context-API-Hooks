@@ -1,4 +1,5 @@
 {
+  "homepage": "https://sallybdiament.github.io/Project-16-StarWars-Planets-Search-With-Context-API-Hooks/",
   "name": "sd-0x-project-react-context-hooks-starwars-datatable-filters",
   "version": "0.1.0",
   "private": true,
@@ -19,8 +20,9 @@
       "!src/index.js"
     ]
   },
-  "homepage": "https://sallybdiament.github.io/starwars-search",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "cy": "cypress run",
     "cy:open": "cypress open",
     "start": "react-scripts start",
@@ -29,9 +31,7 @@
     "test-coverage": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "lint:styles": "npx stylelint '**/*.css'",
-    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js,.jsx",
-    "predeploy": "npm run build",
-  "deploy": "gh-pages -d build"
+    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js,.jsx"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -60,6 +60,7 @@
     "mochawesome-merge": "^4.2.1",
     "mochawesome-report-generator": "^6.2.0",
     "stylelint": "13.8.0",
-    "stylelint-order": "4.1.0"
+    "stylelint-order": "4.1.0",
+    "gh-pages": "^4.0.0"
   }
 }

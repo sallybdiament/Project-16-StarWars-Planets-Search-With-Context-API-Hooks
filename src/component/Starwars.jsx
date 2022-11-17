@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React, { useContext, useEffect } from 'react';
 import AppContext from '../context/AppContext';
 
@@ -66,6 +67,7 @@ function Starwars() {
     if (sort) { setPlanets(sortedPlanets); }
   }
 
+  // eslint-disable-next-line no-unused-vars
   function DESC(column) {
     const one = 1;
     const sortedPlanets = planets.sort((a, b) => {
@@ -83,6 +85,7 @@ function Starwars() {
       const { column, sort } = order;
       ASC(column, sort);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickOrder]);
 
   return (
